@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FilmsLib.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmsLib.Controllers
 {
@@ -22,7 +23,8 @@ namespace FilmsLib.Controllers
         {
             return View();
         }
-
+        
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

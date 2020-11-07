@@ -23,9 +23,10 @@ namespace FilmsLib.Models
         public int? CoverId { get; set; }
         public virtual Cover Cover { get; set; }
 
-        public virtual IEnumerable<FilmGenre> FilmGenres { get; set; }
+        public int DirectorId { get; set; }
+        public virtual Director Director { get; set; }
 
-        public virtual IEnumerable<FilmDirector> FilmDirectors { get; set; }
+        public virtual IEnumerable<FilmGenre> FilmGenres { get; set; }
 
         public virtual IEnumerable<Review> Reviews { get; set; }
     }

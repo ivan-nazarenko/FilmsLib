@@ -16,6 +16,6 @@ namespace FilmsLib.Models
         [MaxLength(50)]
         public string LastName { get; set; }
 
-        public virtual IEnumerable<FilmDirector> FilmDirectors { get; set; }
+        public virtual IEnumerable<Film> Films { get; set; }
 }
 }

@@ -14,11 +14,12 @@ namespace FilmsLib.Models
         [MaxLength(100)]
         public string Heading { get; set; }
         public string Text { get; set; }
+        public DateTime PublicatonDate { get; set; }
 
         public int FilmId { get; set; }
         public virtual Film Film { get; set; }
 
         public int ViewerId { get; set; }
-        public virtual Viewer Viewer { get; set; }
+        public virtual Reviewer Viewer { get; set; }
     }
 }
