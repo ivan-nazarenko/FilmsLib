@@ -19,7 +19,7 @@ namespace FilmsLib.Models
         public int FilmId { get; set; }
         public virtual Film Film { get; set; }
 
-        public int ViewerId { get; set; }
-        public virtual Reviewer Viewer { get; set; }
+        public int ReviewerId { get; set; }
+        public virtual Reviewer Reviewer { get; set; }
     }
 }

@@ -75,7 +75,7 @@ namespace FilmsLib
                 app.UseHsts();
             }
 
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
