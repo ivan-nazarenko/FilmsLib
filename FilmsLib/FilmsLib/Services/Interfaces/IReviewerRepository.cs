@@ -10,6 +10,7 @@ namespace FilmsLib.Services.Interfaces
     {
         void Add(Reviewer reviewer);
         Task<Reviewer> GetByNicknameAsync(string nickname);
+        Task<Reviewer> GetByIdAsync(int id);
         Task<bool> SaveChangesAsync();
     }
 }

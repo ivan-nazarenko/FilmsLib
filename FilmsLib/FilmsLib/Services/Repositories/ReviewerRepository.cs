@@ -23,6 +23,11 @@ namespace FilmsLib.Services.Repositories
             _context.Reviewers.Add(reviewer);
         }
 
+        public async Task<Reviewer> GetByIdAsync(int id)
+        {
+            return await _context.Reviewers.FindAsync(id);
+        }
+
         public async Task<Reviewer> GetByNicknameAsync(string nickname)
         {
             return await _context.Reviewers.SingleOrDefaultAsync(r => r.Nickname == nickname);

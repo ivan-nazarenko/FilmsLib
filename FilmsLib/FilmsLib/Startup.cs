@@ -50,6 +50,14 @@ namespace FilmsLib
 
             services.AddControllersWithViews();
 
+            services.AddRazorPages().AddMvcOptions(options =>
+             {
+                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+                        _ => "Це поле обов'язкове");
+                 options.ModelBindingMessageProvider.SetNonPropertyAttemptedValueIsInvalidAccessor(
+                        _ => "Це поле обов'язкове");
+             });
+
             services.AddScoped<IReviewerRepository, ReviewerRepository>();
         }
 
