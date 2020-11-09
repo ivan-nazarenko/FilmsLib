@@ -27,8 +27,11 @@ namespace FilmsLib
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<FilmsLibContext>(options =>
+            // options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<FilmsLibContext>(options =>
-             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("MsSqlConnection")));
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -59,6 +62,7 @@ namespace FilmsLib
              });
 
             services.AddScoped<IReviewerRepository, ReviewerRepository>();
+            services.AddScoped<IDetailsRepository, DetailsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,7 +79,7 @@ namespace FilmsLib
                 app.UseHsts();
             }
 
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             app.UseHttpsRedirection();

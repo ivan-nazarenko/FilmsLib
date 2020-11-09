@@ -1,0 +1,109 @@
+﻿@model FilmsLib.ViewModels.DetailsViewModel
+
+@{
+    ViewData["Title"] = "Інше";
+}
+
+<div id="modal-placeholder"></div>
+
+<div class="row flex-wrap">
+    <div class="col border p-3">
+        <div class="d-flex justify-content-between mb-2">
+            <h5>Жанри</h5>
+            <button class="btn btn-dark btn-sm" data-toggle="ajax-modal" data-target="#add-contact" data-url="@Url.Action("AddGenre")">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <table class="table genres table-borderless">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="col">Назва</th>
+                    <th scope="col" class="col-auto"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var genre in Model.Genres)
+                {
+                    <tr>
+                        <td>@genre.Name</td>
+                        <td>
+                            <form asp-action="DeleteGenre" asp-route-id="@genre.Id" data-ajax="true" data-ajax-success="deleteRow(this)">
+                                <button type="submit" class="btn btn-dark btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6 col border p-3 mx-1">
+        <div class="d-flex justify-content-between mb-2">
+            <h5>Режисери</h5>
+            <button class="btn btn-dark btn-sm" data-toggle="ajax-modal" data-target="#add-contact" data-url="@Url.Action("AddDirector")">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <table class="table .directors table-borderless">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="mr2">Ім'я</th>
+                    <th scope="col" class="col mr-auto">Прізвище</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dir in Model.Directors)
+                {
+                    <tr>
+                        <td>@dir.FirstName</td>
+                        <td>@dir.LastName</td>
+                        <td>
+                            <form asp-action="DeleteDirector" asp-route-id="@dir.Id" data-ajax="true" data-ajax-success="deleteRow(this)">
+                                <button type="submit" class="btn btn-dark btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col col border p-3">
+        <div class="d-flex justify-content-between mb-2">
+            <h5>Мови</h5>
+            <button class="btn btn-dark btn-sm" data-toggle="ajax-modal" data-target="#add-contact" data-url="@Url.Action("AddLanguage")">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <table class="table .langs table-borderless">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="col">Назва</th>
+                    <th scope="col" class="col-auto"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lang in Model.Languages)
+                {
+                    <tr>
+                        <td>@lang.Name</td>
+                        <td>
+                            <form asp-action="DeleteLanguage" asp-route-id="@lang.Id" data-ajax="true" data-ajax-success="deleteRow(this)">
+                                <button type="submit" class="btn btn-dark btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/details.js"></script>
+}
