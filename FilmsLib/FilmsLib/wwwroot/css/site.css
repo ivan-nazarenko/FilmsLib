@@ -19,10 +19,14 @@ a.navbar-brand {
   border-color: #1861ac;
 }
 
+.navbar-brand {
+    font-size: 30px;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {

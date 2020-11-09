@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using FilmsLib.Models;
 using FilmsLib.Services.Interfaces;
 using FilmsLib.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace FilmsLib.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DetailsController : Controller
     {
         private readonly ILogger<DetailsController> _logger;

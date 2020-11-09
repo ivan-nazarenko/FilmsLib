@@ -12,5 +12,8 @@ namespace FilmsLib.Models
         public string ImageName { get; set; }
         public byte[] PhotoFile { get; set; }
         public string ImageMimeType { get; set; }
+
+        public int FilmId { get; set; }
+        public virtual Film Film { get; set; }
     }
 }

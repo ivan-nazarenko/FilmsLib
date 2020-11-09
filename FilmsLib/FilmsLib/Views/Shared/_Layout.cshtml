@@ -50,13 +50,13 @@
                                 @User.Identity.Name
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Профіль</a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user mr-2"></i>Профіль
+                                </a>
                                 <form method="post" asp-controller="Account" asp-action="Logout">
-                                    <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn bg-transparent">
-                                            Вийти<i class="fas fa-sign-out-alt ml-1"></i>
-                                        </button>
-                                    </div>
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fas fa-sign-out-alt mr-2"></i>Вийти
+                                    </button>
                                 </form>
                             </div>
                         </div>

@@ -20,7 +20,6 @@ namespace FilmsLib.Models
         public int LanguageId { get; set; }
         public virtual Language Language { get; set; }
 
-        public int? CoverId { get; set; }
         public virtual Cover Cover { get; set; }
 
         public int DirectorId { get; set; }
