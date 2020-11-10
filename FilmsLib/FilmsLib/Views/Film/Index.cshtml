@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FilmsLib.Models.Film>
+
+@{
+    ViewData["Title"] = "Додавання фільму";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="row justify-content-between align-content-start mb-2">
+        <h3 class="text-dark mr-auto">Фільми</h3>
+        <a asp-controller="Film" asp-action="Create" class="btn btn-dark">
+            <i class="fas fa-plus align-self-center"></i>
+        </a>
+    </div>
+}
+else
+{
+    <div class="row justify-content-between align-content-start mb-2">
+        <h3 class="text-dark mr-auto">Фільми</h3>
+    </div>
+}
+<div class="row">
+    <div class="card-group">
+        @foreach (var item in Model)
+        {
+            <a asp-controller="Film" asp-action="Create" asp-route-id="@item.Id">
+                <div class="card text-white bg-dark mr-1">
+                    <div class="card-header">@item.Name (@item.Year)</div>
+                    @if (item.Cover != null)
+                    {
+                        <img class="p-2 card-img film-poster align-self-center" src="@Url.Action("GetImage", "Film", new { Id = item.Id })">
+                    }
+                    else
+                    {
+                        <img class="p-2 card-img film-poster align-self-center" style="object-fit:cover" src="~/images/placeholder.jpg">
+                    }
+                    <div class="card-body">
+                        <p class="card-text">
+                            Жанри:
+                            @foreach (var gen in item.FilmGenres)
+                            {
+                                <span>@gen.Genre.Name</span>
+                            }
+                        </p>
+                        <p class="card-text">Режисер: @item.Director.FirstName @item.Director.LastName</p>
+                        <p class="card-text">Мова: @item.Language.Name</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
+

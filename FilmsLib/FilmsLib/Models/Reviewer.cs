@@ -17,8 +17,6 @@ namespace FilmsLib.Models
         public string UserId { get; set; }
         public virtual User User { get; set; }
 
-        public virtual WatchList WatchList { get; set; }
-
         public virtual IEnumerable<Review> Reviews { get; set; }
              
     }

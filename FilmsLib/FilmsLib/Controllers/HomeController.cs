@@ -21,7 +21,7 @@ namespace FilmsLib.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Film");
         }
         
         [Authorize]

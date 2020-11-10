@@ -29,6 +29,5 @@ namespace FilmsLib.Models
 
         public virtual IEnumerable<Review> Reviews { get; set; }
 
-        public virtual IEnumerable<WatchListFilm> WatchListFilms { get; set; }
     }
 }

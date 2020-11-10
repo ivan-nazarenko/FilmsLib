@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MovieDB<i class="mx-1 fas fa-film"></i></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Film" asp-action="Index">MovieDB<i class="mx-1 fas fa-film"></i></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,7 +20,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Фільми</a>
+                            <a class="nav-link" asp-area="" asp-controller="Film" asp-action="Index">Фільми</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Відгуки</a>
@@ -67,7 +67,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3 pt-3 mt-5">
+        <main role="main" class="pb-3 pt-3 mt-4">
             @RenderBody()
         </main>
     </div>

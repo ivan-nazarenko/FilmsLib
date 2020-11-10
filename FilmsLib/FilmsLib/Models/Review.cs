@@ -9,7 +9,7 @@ namespace FilmsLib.Models
     public class Review
     {
         public int Id { get; set; }
-        public float Mark { get; set; }
+        public int Mark { get; set; }
 
         [MaxLength(100)]
         public string Heading { get; set; }

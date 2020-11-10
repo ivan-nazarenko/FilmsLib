@@ -89,3 +89,11 @@ div.validation-summary-errors * {
     align-self: center;
     width: 350px;
 }
+
+/* Films */
+
+img.film-poster {
+    height: 250px;
+    width: 175px;
+    object-fit: contain;
+}
