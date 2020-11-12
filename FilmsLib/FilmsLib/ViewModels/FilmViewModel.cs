@@ -10,6 +10,8 @@ namespace FilmsLib.ViewModels
 {
     public class FilmViewModel
     {
+        public int? Id { get; set; }
+
         [Required]
         [Display(Name = "Ім'я")]
         public string Name { get; set; }
@@ -48,5 +50,16 @@ namespace FilmsLib.ViewModels
         public string ImageName { get; set; }
         public byte[] PhotoFile { get; set; }
         public string ImageMimeType { get; set; }
+
+        public FilmViewModel(Film film)
+        {
+            Id = film.Id;
+            Name = film.Name;
+            Year = film.Year;
+            Duration = film.Duration;
+            TrailerLink = film.TrailerLink;
+            DirectorId = film.DirectorId;
+            LanguageId = film.LanguageId;
+        }
     }
 }

@@ -4,11 +4,16 @@
     ViewData["Title"] = "Таблиця фільмів";
 }
 
-<h3 class="text-dark">Фільми</h3>
+<div class="d-flex">
+    <h3 class="text-dark mr-2">Фільми</h3>
+    <a asp-controller="Film" asp-action="Create" class="btn btn-dark btn-sm mb-2">
+        <i class="fas fa-plus align-self-center"></i>
+    </a>
+</div>
 <table class="table genres table-borderless data-table">
     <thead class="thead-dark">
         <tr>
-            <th scope="col" class="visible">#</th>
+            <th scope="col" class="visible">ID</th>
             <th scope="col" class="visible">Нзава</th>
             <th scope="col" class="visible">Рік виходу</th>
             <th scope="col" class="visible">Тривалість</th>
@@ -35,7 +40,10 @@
                     }
                 </td>
                 <td class="d-flex">
-                    <a asp-action="Edit" asp-controller="Film" class="btn btn-dark btn-sm mr-1">
+                    <a asp-action="Details" asp-controller="Film" asp-route-id="@item.Id" class="btn btn-dark btn-sm mr-1">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a asp-action="Edit" asp-controller="Film" asp-route-id="@item.Id" class="btn btn-dark btn-sm mr-1">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     <form asp-action="Delete" asp-route-id="@item.Id">

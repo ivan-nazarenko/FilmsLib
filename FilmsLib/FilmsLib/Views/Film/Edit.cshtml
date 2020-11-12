@@ -1,0 +1,61 @@
+﻿@model FilmsLib.ViewModels.FilmViewModel
+
+@{
+    ViewData["Title"] = "Редагування фільму";
+}
+
+<h3 class="text-dark mb-3 mr-auto">Редагування фільму</h3>
+<form method="post" class="form-sample" enctype="multipart/form-data" asp-controller="FIlm" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label><br />
+        <input class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Year"></label><br />
+        <input class="form-control" asp-for="Year" />
+        <span asp-validation-for="Year"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Duration"></label><br />
+        <input class="form-control" asp-for="Duration" />
+        <span asp-validation-for="Duration"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label><br />
+        <textarea class="form-control" rows="3" asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TrailerLink"></label><br />
+        <input class="form-control" asp-for="TrailerLink" />
+        <span asp-validation-for="TrailerLink"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LanguageId"></label><br />
+        <select class="form-control" asp-for="LanguageId">
+            @foreach (var item in (List<Language>)ViewData["Languages"])
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <span asp-validation-for="LanguageId"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DirectorId"></label><br />
+        <select class="form-control" asp-for="DirectorId">
+            @foreach (var item in (List<Director>)ViewData["Directors"])
+            {
+                <option value="@item.Id">@item.FirstName @item.LastName</option>
+            }
+        </select>
+        <span asp-validation-for="DirectorId"></span>
+    </div>
+    <button class="btn btn-dark mr-2 mt-4" type="submit">Зберегти</button>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+

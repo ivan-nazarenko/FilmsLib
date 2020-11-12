@@ -59,7 +59,7 @@ namespace FilmsLib.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(FilmViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -72,14 +72,14 @@ namespace FilmsLib.Controllers
                     Year = model.Year,
                     Duration = model.Duration,
                     Description = model.Description,
-                    TrailerLink = model.TrailerLink.Substring(model.TrailerLink.Length - 11),
+                    TrailerLink = model.TrailerLink[^11..],
                     LanguageId = model.LanguageId,
                     DirectorId = model.DirectorId
                 };
 
                 _filmRepository.Add(film);
 
-                if(await _filmRepository.SaveChangesAsync())
+                if (await _filmRepository.SaveChangesAsync())
                 {
                     _filmRepository.AddGenres(film.Id, model.Genres);
 
@@ -101,24 +101,47 @@ namespace FilmsLib.Controllers
             }
         }
 
-        // GET: FilmController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var film = await _filmRepository.GetByIdAsync(id);
+            var model = new FilmViewModel(film);
+
+            ViewData["Languages"] = await _detailsRepository.GetLanguagesAsync();
+            ViewData["Genres"] = await _detailsRepository.GetGenresAsync();
+            ViewData["Directors"] = await _detailsRepository.GetDirectorsAsync();
+
+            return View(model);
         }
 
-        // POST: FilmController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(FilmViewModel model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                var film = await _filmRepository.GetByIdAsync((int)model.Id);
+
+                film.Id = (int)model.Id;
+                film.Name = model.Name;
+                film.Year = model.Year;
+                film.Duration = model.Duration;
+                film.TrailerLink = model.TrailerLink;
+                film.DirectorId = model.DirectorId;
+                film.LanguageId = model.LanguageId;
+
+                await _filmRepository.SaveChangesAsync();
+
+                return RedirectToAction("FilmsTable", "Film");
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 

@@ -33,6 +33,14 @@ namespace FilmsLib.Services.Repositories
             return await _context.Reviewers.SingleOrDefaultAsync(r => r.Nickname == nickname);
         }
 
+        public async Task<Reviewer> GetByUserId(string id)
+        {
+            return await _context.Reviewers.Include(r => r.User)
+                                           .Include(r => r.Reviews)
+                                           .ThenInclude(r => r.Film)
+                                           .SingleOrDefaultAsync(r => r.UserId == id);
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync() > 0);

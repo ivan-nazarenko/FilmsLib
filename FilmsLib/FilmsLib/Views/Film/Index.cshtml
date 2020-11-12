@@ -8,9 +8,6 @@
 {
     <div class="row justify-content-between align-content-start mb-2">
         <h3 class="text-dark mr-auto">Фільми</h3>
-        <a asp-controller="Film" asp-action="Create" class="btn btn-dark">
-            <i class="fas fa-plus align-self-center"></i>
-        </a>
     </div>
 }
 else
@@ -34,7 +31,7 @@ else
                 }
                 else
                 {
-                    <img class="p-2 card-img film-poster align-self-center" style="object-fit:cover" src="~/images/placeholder.jpg">
+                    <img class="p-2 card-img film-poster align-self-center" style="object-fit:contain" src="~/images/placeholder.png">
                 }
                 <div class="card-body">
                     <p class="card-text">
