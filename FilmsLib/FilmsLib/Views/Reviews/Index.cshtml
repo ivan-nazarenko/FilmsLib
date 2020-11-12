@@ -1,7 +1,42 @@
-﻿
+﻿@model List<FilmsLib.Models.Review>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Таблиця відгуків";
 }
 
-<h1>Index</h1>
-
+<div class="d-flex">
+    <h3 class="text-dark mr-2">Відгуки</h3>
+</div>
+<table class="table genres table-borderless data-table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" class="visible">ID</th>
+            <th scope="col" class="visible">Користувач</th>
+            <th scope="col" class="visible">Оцінка</th>
+            <th scope="col" class="visible">Заголовок</th>
+            <th scope="col" class="visible">Текст</th>
+            <th scope="col" class="visible">Дата</th>
+            <th scope="col" class="visible"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="row">@item.Id</td>
+                <td>@item.Reviewer.Nickname</td>
+                <td>@item.Mark</td>
+                <td>@item.Heading</td>
+                <td>@item.Text</td>
+                <td>@item.PublicatonDate</td>
+                <td class="d-flex">
+                    <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@item.Id" asp-route-admin="1">
+                        <button type="submit" class="btn btn-dark btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

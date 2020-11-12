@@ -50,6 +50,14 @@ namespace FilmsLib.Controllers
             return View(await _filmRepository.GetFilmsAsync());
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Index(string query)
+        {
+            ViewBag.Search = query;
+            return View(await _filmRepository.GetByName(query));
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> Details(int id)
@@ -109,7 +117,7 @@ namespace FilmsLib.Controllers
                     await _filmRepository.SaveChangesAsync();
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(FilmsTable));
             }
             catch
             {

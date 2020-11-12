@@ -66,7 +66,8 @@ namespace FilmsLib.Controllers
                     Heading = model.Heading,
                     Text = model.Text,
                     FilmId = model.FilmId,
-                    ReviewerId = model.ReviewerId
+                    ReviewerId = model.ReviewerId,
+                    PublicatonDate = DateTime.Now
                 };
 
                 _reviewsRepository.Add(review);
@@ -76,6 +77,24 @@ namespace FilmsLib.Controllers
             catch
             {
                 return View(model);
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, int admin = 0)
+        {
+            var rev = await _reviewsRepository.GetByIdAsync(id);
+            _reviewsRepository.Delete(rev);
+            await _reviewsRepository.SaveChangesAsync();
+
+            if (admin == 1)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return RedirectToAction("Profile", "Account");
             }
         }
 

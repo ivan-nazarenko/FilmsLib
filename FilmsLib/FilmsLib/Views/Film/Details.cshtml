@@ -9,18 +9,27 @@
         <div class="col-auto">
             @if (Model.Cover != null)
             {
-                <img class="py-2 card-img" src="@Url.Action("GetImage", "Film", new { Id = Model.Id })">
+                <img class="py-2" style="width:400px;" src="@Url.Action("GetImage", "Film", new { Id = Model.Id })">
             }
             else
             {
-                <img class="py-2 card-img" style="object-fit:contain; width:200px;" src="~/images/placeholder.png">
+                <img class="py-2" style="object-fit:contain; width:200px;" src="~/images/placeholder.png">
             }
         </div>
         <div class="col">
-            <h2 class="mb-3">@Model.Name (@Model.Year)</h2>
-            <a asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-dark btn-sm">
-                <i class="fas fa-star"></i>
-            </a>
+            <div class="row align-content-center">
+                <div class="col-auto">
+                    <h2 class="mb-3">@Model.Name (@Model.Year)</h2>
+                </div>
+                @if (User.IsInRole("User"))
+                {
+                    <div class="col-auto mt-1">
+                        <a asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-dark btn-sm">
+                            <i class="fas fa-star"></i>
+                        </a>
+                    </div>
+                }
+            </div>
             <p class="card-text">
                 <span class="font-weight-bold">Жанри:</span>
                 @foreach (var gen in Model.FilmGenres)
@@ -30,11 +39,25 @@
             </p>
             <p class="card-text"><span class="font-weight-bold">Режисер:&nbsp;</span>@Model.Director.FirstName @Model.Director.LastName</p>
             <p class="card-text"><span class="font-weight-bold">Мова оригіналу:&nbsp;</span>@Model.Language.Name</p>
+            <p class="card-text"><span class="font-weight-bold">Тривалість:&nbsp;</span>@Model.Duration</p>
             <p class="card-text desc"><span class="font-weight-bold">Опис:&nbsp;</span>@Model.Description</p>
-            <span class=""></span>
         </div>
     </div>
-    <div class="embed-responsive embed-responsive-16by9 mt-3 p-3 border-top">
+    <div class="embed-responsive embed-responsive-16by9 mt-3 p-3 mb-3">
         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.TrailerLink" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+    <div class="p-2 border-top d-flex">
+        <h3>Відгуки</h3>
+    </div>
+    @foreach (var item in (List<Review>)ViewBag.Reviews)
+    {
+        <div class="d-flex flex-column mb-3 p-2">
+            <div class="d-flex mb-1">
+                <span class="font-weight-bold mr-1">@item.Reviewer.Nickname</span>
+                <span class="text-muted">@item.PublicatonDate</span>
+            </div>
+            <h4>@item.Mark / 10, @item.Heading</h4>
+            <p>@item.Text</p>
+        </div>
+    }
 </div>

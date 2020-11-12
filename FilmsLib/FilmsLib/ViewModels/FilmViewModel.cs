@@ -11,7 +11,7 @@ namespace FilmsLib.ViewModels
     public class FilmViewModel
     {
         [Required]
-        [Display(Name = "Ім'я")]
+        [Display(Name = "Назва")]
         public string Name { get; set; }
 
         [Required]
