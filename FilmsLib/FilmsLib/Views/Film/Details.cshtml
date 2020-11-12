@@ -39,24 +39,28 @@
             </p>
             <p class="card-text"><span class="font-weight-bold">Режисер:&nbsp;</span>@Model.Director.FirstName @Model.Director.LastName</p>
             <p class="card-text"><span class="font-weight-bold">Мова оригіналу:&nbsp;</span>@Model.Language.Name</p>
-            <p class="card-text"><span class="font-weight-bold">Тривалість:&nbsp;</span>@Model.Duration</p>
+            <p class="card-text"><span class="font-weight-bold">Тривалість:&nbsp;</span>@Model.Duration хв</p>
             <p class="card-text desc"><span class="font-weight-bold">Опис:&nbsp;</span>@Model.Description</p>
         </div>
     </div>
-    <div class="embed-responsive embed-responsive-16by9 mt-3 p-3 mb-3">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.TrailerLink" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.TrailerLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <div class="p-2 border-top d-flex">
-        <h3>Відгуки</h3>
+    <div class="p-2 d-flex justify-content-sm-center mt-2">
+        <h3>Відгуки:</h3>
     </div>
     @foreach (var item in (List<Review>)ViewBag.Reviews)
     {
         <div class="d-flex flex-column mb-3 p-2">
-            <div class="d-flex mb-1">
+            <div class="d-flex justify-content-between mb-1">
                 <span class="font-weight-bold mr-1">@item.Reviewer.Nickname</span>
                 <span class="text-muted">@item.PublicatonDate</span>
             </div>
-            <h4>@item.Mark / 10, @item.Heading</h4>
+            <div class="d-flex justify-content-between mb-1">
+                <h5>@item.Heading</h5>
+                <h5>@item.Mark/10</h5>
+            </div>
+            
             <p>@item.Text</p>
         </div>
     }

@@ -8,36 +8,33 @@
 <div class="d-flex justify-content-between align-content-start mb-2">
     <h3 class="text-dark mr-auto">Фільми</h3>
 </div>
-<div class="d-flex">
-    <div class="card-group">
-        @foreach (var item in Model)
-        {
+<div class="row">
+    @foreach (var item in Model)
+    {
 
-            <div class="card text-white bg-dark mr-1">
-                <a asp-controller="Film" asp-action="Details" asp-route-id="@item.Id">
-                    <div class="card-header text-white font-weight-bold"><h5>@item.Name (@item.Year)</h5></div>
-                </a>
-                @if (item.Cover != null)
-                {
-                    <img class="p-2 card-img film-poster align-self-center" src="@Url.Action("GetImage", "Film", new { Id = item.Id })">
-                }
-                else
-                {
-                    <img class="p-2 card-img film-poster align-self-center" style="object-fit:contain" src="~/images/placeholder.png">
-                }
-                <div class="card-body">
-                    <p class="card-text">
-                        <span class="font-weight-bold">Жанри:</span>
-                        @foreach (var gen in item.FilmGenres)
-                        {
-                            <span>@gen.Genre.Name,</span>
-                        }
-                    </p>
-                    <p class="card-text"><span class="font-weight-bold">Режисер:&nbsp;</span>@item.Director.FirstName @item.Director.LastName</p>
-                </div>
+        <div class="card col-3 text-white bg-dark">
+            <a asp-controller="Film" asp-action="Details" asp-route-id="@item.Id">
+                <div class="card-header text-white font-weight-bold"><h6>@item.Name (@item.Year)</h6></div>
+            </a>
+            @if (item.Cover != null)
+            {
+                <img class="p-2 card-img film-poster align-self-center" src="@Url.Action("GetImage", "Film", new { Id = item.Id })">
+            }
+            else
+            {
+                <img class="p-2 card-img film-poster align-self-center" style="object-fit:contain" src="~/images/placeholder.png">
+            }
+            <div class="card-body">
+                <p class="card-text">
+                    <span class="font-weight-bold">Жанри:</span>
+                    @foreach (var gen in item.FilmGenres)
+                    {
+                        <span>@gen.Genre.Name</span>
+                    }
+                </p>
+                <p class="card-text"><span class="font-weight-bold">Режисер:&nbsp;</span>@item.Director.FirstName @item.Director.LastName</p>
             </div>
-
-        }
-    </div>
+        </div>
+    }
 </div>
 
