@@ -12,6 +12,7 @@ namespace FilmsLib.Services.Interfaces
         Task<Reviewer> GetByNicknameAsync(string nickname);
         Task<Reviewer> GetByIdAsync(int id);
         Task<Reviewer> GetByUserId(string id);
+        Task<Review> GetReviewByFilmId(int filmId, int reviewerId);
         Task<bool> SaveChangesAsync();
     }
 }

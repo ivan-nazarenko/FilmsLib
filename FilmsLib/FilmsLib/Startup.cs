@@ -70,6 +70,7 @@ namespace FilmsLib
             services.AddScoped<IReviewerRepository, ReviewerRepository>();
             services.AddScoped<IDetailsRepository, DetailsRepository>();
             services.AddScoped<IFilmRepository, FilmRepository>();
+            services.AddScoped<IReviewsRepository, ReviewsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

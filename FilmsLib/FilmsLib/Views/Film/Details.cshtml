@@ -18,6 +18,9 @@
         </div>
         <div class="col">
             <h2 class="mb-3">@Model.Name (@Model.Year)</h2>
+            <a asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-dark btn-sm">
+                <i class="fas fa-star"></i>
+            </a>
             <p class="card-text">
                 <span class="font-weight-bold">Жанри:</span>
                 @foreach (var gen in Model.FilmGenres)
@@ -35,14 +38,3 @@
         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.TrailerLink" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </div>
-
-@section Scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="~/js/bootstrap-input-spinner.js"></script>
-    <script src="~/js/numberspinner.js"></script>
-    <script src="~/js/order-summary.js"></script>
-}
-
-

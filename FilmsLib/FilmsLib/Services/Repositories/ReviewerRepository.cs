@@ -41,6 +41,11 @@ namespace FilmsLib.Services.Repositories
                                            .SingleOrDefaultAsync(r => r.UserId == id);
         }
 
+        public async Task<Review> GetReviewByFilmId(int filmId, int reviewerId)
+        {
+            return await _context.Reviews.Include(r => r.Reviewer).Where(r => r.FilmId == filmId && r.ReviewerId == reviewerId).SingleOrDefaultAsync();
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync() > 0);

@@ -1,5 +1,4 @@
 ﻿using FilmsLib.Models;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,8 +7,24 @@ using System.Threading.Tasks;
 
 namespace FilmsLib.ViewModels
 {
-    public class FilmViewModel
+    public class FilmEditViewModel
     {
+        public FilmEditViewModel(Film film)
+        {
+            Id = film.Id;
+            Name = film.Name;
+            Year = film.Year;
+            Duration = film.Duration;
+            Description = film.Description;
+            TrailerLink = "https://youtu.be/" + film.TrailerLink;
+            DirectorId = film.DirectorId;
+            LanguageId = film.LanguageId;
+        }
+
+        public FilmEditViewModel() { }
+
+        public int Id { get; set; }
+
         [Required]
         [Display(Name = "Ім'я")]
         public string Name { get; set; }
@@ -30,6 +45,7 @@ namespace FilmsLib.ViewModels
         [Display(Name = "Посилання на трейлер")]
         public string TrailerLink { get; set; }
 
+
         [Required]
         [Display(Name = "Мова")]
         public int LanguageId { get; set; }
@@ -37,15 +53,5 @@ namespace FilmsLib.ViewModels
         [Required]
         [Display(Name = "Режисер")]
         public int DirectorId { get; set; }
-
-        [Required]
-        [Display(Name = "Жанри")]
-        public List<int> Genres { get; set; }
-
-        [Display(Name = "Фото:")]
-        public IFormFile Image { get; set; }
-        public string ImageName { get; set; }
-        public byte[] PhotoFile { get; set; }
-        public string ImageMimeType { get; set; }
     }
 }

@@ -1,0 +1,35 @@
+﻿@model FilmsLib.ViewModels.ReviewViewModel
+
+@{
+    ViewData["Title"] = "Відгук";
+}
+
+<h3 class="text-dark mb-3 mr-auto">Відгук</h3>
+<form method="post" class="form-sample" asp-controller="Reviews" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input asp-for="FilmId" type="hidden" value="@Model.FilmId" />
+    <input asp-for="ReviewerId" type="hidden" value="@Model.ReviewerId" />
+    <div class="form-group">
+        <label asp-for="Mark"></label>
+        <div class="d-flex">
+            <span>&#128545;</span><input asp-for="Mark" type="range" min="1" max="10" step="1" class="form-control-range" /><span>&#128522;</span>
+        </div>
+        
+        <span asp-validation-for="Mark"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Heading"></label>
+        <input asp-for="Heading" class="form-control" />
+        <span asp-validation-for="Heading"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Text"></label>
+        <textarea asp-for="Text" class="form-control"></textarea>
+        <span asp-validation-for="Text"></span>
+    </div>
+    <button class="btn btn-dark mr-2 mt-4" type="submit">Зберегти</button>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

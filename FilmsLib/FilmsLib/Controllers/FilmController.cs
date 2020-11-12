@@ -9,25 +9,38 @@ using FilmsLib.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace FilmsLib.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class FilmController : Controller
     {
         private readonly ILogger<FilmController> _logger;
         private readonly IDetailsRepository _detailsRepository;
         private readonly IFilmRepository _filmRepository;
         private readonly IWebHostEnvironment _environment;
+        private readonly IReviewsRepository _reviewsRepository;
+        private readonly IReviewerRepository _reviewerRepository;
+        private readonly UserManager<User> _userManager;
 
-        public FilmController(ILogger<FilmController> logger, IDetailsRepository detailsRepository, IWebHostEnvironment environment, IFilmRepository filmRepository)
+        public FilmController(ILogger<FilmController> logger,
+                              IDetailsRepository detailsRepository,
+                              IWebHostEnvironment environment,
+                              IFilmRepository filmRepository,
+                              IReviewsRepository reviewsRepository,
+                              IReviewerRepository reviewerRepository,
+                              UserManager<User> userManager)
         {
             _logger = logger;
             _detailsRepository = detailsRepository;
             _environment = environment;
             _filmRepository = filmRepository;
+            _reviewerRepository = reviewerRepository;
+            _reviewsRepository = reviewsRepository;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -41,10 +54,12 @@ namespace FilmsLib.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Details(int id)
         {
+            ViewBag.Reviews = await _reviewsRepository.GetByFilmIdAsync(id);
             var film = await _filmRepository.GetByIdAsync(id);
             return View(film);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Create()
         {
@@ -55,6 +70,7 @@ namespace FilmsLib.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(FilmViewModel model)
@@ -101,11 +117,12 @@ namespace FilmsLib.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
             var film = await _filmRepository.GetByIdAsync(id);
-            var model = new FilmViewModel(film);
+            var model = new FilmEditViewModel(film);
 
             ViewData["Languages"] = await _detailsRepository.GetLanguagesAsync();
             ViewData["Genres"] = await _detailsRepository.GetGenresAsync();
@@ -114,9 +131,9 @@ namespace FilmsLib.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(FilmViewModel model)
+        public async Task<ActionResult> Edit(FilmEditViewModel model)
         {
             try
             {
@@ -127,11 +144,12 @@ namespace FilmsLib.Controllers
 
                 var film = await _filmRepository.GetByIdAsync((int)model.Id);
 
-                film.Id = (int)model.Id;
+                film.Id = model.Id;
                 film.Name = model.Name;
                 film.Year = model.Year;
                 film.Duration = model.Duration;
-                film.TrailerLink = model.TrailerLink;
+                film.TrailerLink = model.TrailerLink[^11..];
+                film.Description = model.Description;
                 film.DirectorId = model.DirectorId;
                 film.LanguageId = model.LanguageId;
 
@@ -145,6 +163,7 @@ namespace FilmsLib.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id)
@@ -162,11 +181,13 @@ namespace FilmsLib.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> FilmsTable()
         {
             return View(await _filmRepository.GetFilmsAsync());
         }
+
 
         [AllowAnonymous]
         public async Task<IActionResult> GetImage(int id)
