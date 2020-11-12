@@ -1,0 +1,48 @@
+﻿@model Film
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="d-flex flex-column p-2 border">
+    <div class="d-flex pb-2 border-bottom">
+        <div class="col-auto">
+            @if (Model.Cover != null)
+            {
+                <img class="py-2 card-img" src="@Url.Action("GetImage", "Film", new { Id = Model.Id })">
+            }
+            else
+            {
+                <img class="py-2 card-img" style="object-fit:cover" src="~/images/placeholder.jpg">
+            }
+        </div>
+        <div class="col">
+            <h2 class="mb-3">@Model.Name (@Model.Year)</h2>
+            <p class="card-text">
+                <span class="font-weight-bold">Жанри:</span>
+                @foreach (var gen in Model.FilmGenres)
+                {
+                    <span>@gen.Genre.Name,</span>
+                }
+            </p>
+            <p class="card-text"><span class="font-weight-bold">Режисер:&nbsp;</span>@Model.Director.FirstName @Model.Director.LastName</p>
+            <p class="card-text"><span class="font-weight-bold">Мова оригіналу:&nbsp;</span>@Model.Language.Name</p>
+            <p class="card-text desc"><span class="font-weight-bold">Опис:&nbsp;</span>@Model.Description</p>
+            <span class=""></span>
+        </div>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9 mt-3 p-3 border-top">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.TrailerLink" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="~/js/bootstrap-input-spinner.js"></script>
+    <script src="~/js/numberspinner.js"></script>
+    <script src="~/js/order-summary.js"></script>
+}
+
+

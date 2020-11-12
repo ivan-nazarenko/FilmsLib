@@ -2,3 +2,18 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+$(document).ready(function () {
+    $('.data-table').DataTable({
+        dom: 'Bfrtip',
+        responsive: true,
+        searching: true,
+        scrollY: false,
+
+        buttons: [
+            
+        ],
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Ukrainian.json"
+        },
+    });
+});

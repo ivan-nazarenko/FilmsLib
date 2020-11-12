@@ -53,6 +53,8 @@ namespace FilmsLib
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddCors();
+
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();

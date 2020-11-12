@@ -39,9 +39,10 @@ namespace FilmsLib.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var film = await _filmRepository.GetByIdAsync(id);
+            return View(film);
         }
 
         [HttpGet]
@@ -71,7 +72,7 @@ namespace FilmsLib.Controllers
                     Year = model.Year,
                     Duration = model.Duration,
                     Description = model.Description,
-                    TrailerLink = model.TrailerLink,
+                    TrailerLink = model.TrailerLink.Substring(model.TrailerLink.Length - 11),
                     LanguageId = model.LanguageId,
                     DirectorId = model.DirectorId
                 };
@@ -130,12 +131,18 @@ namespace FilmsLib.Controllers
                 var film = await _filmRepository.GetByIdAsync(id);
                 _filmRepository.Delete(film);
                 await _filmRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(FilmsTable));
             }
             catch
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(FilmsTable));
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FilmsTable()
+        {
+            return View(await _filmRepository.GetFilmsAsync());
         }
 
         [AllowAnonymous]

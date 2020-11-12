@@ -97,3 +97,8 @@ img.film-poster {
     width: 175px;
     object-fit: contain;
 }
+
+.page-link {
+    background-color: #343A40 !important;
+    border-color: #343A40 !important;
+}
