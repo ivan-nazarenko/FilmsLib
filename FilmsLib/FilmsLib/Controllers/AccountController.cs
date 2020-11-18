@@ -113,8 +113,9 @@ namespace FilmsLib.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Profile()
+        public async Task<IActionResult> Profile(string message = null)
         {
+            ViewBag.Message = message;
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var reviewer = await _reviewerRepository.GetByUserId(user.Id);
             ViewBag.Reviews = await _reviewsRepository.GetByReviewerIdAsync(reviewer.Id);

@@ -28,6 +28,7 @@ namespace FilmsLib.ViewModels
 
         [Required]
         [Display(Name = "Посилання на трейлер")]
+        [StringLength(30, ErrorMessage = "Ім'я надто довге!")]
         public string TrailerLink { get; set; }
 
         [Required]

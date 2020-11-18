@@ -27,15 +27,18 @@ namespace FilmsLib.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string message = null, string error = null)
         {
+            ViewBag.Error = error;
+            ViewBag.Message = message;
             return View(await _reviewsRepository.GetReviewsAsync());
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Reviews()
+        public async Task<IActionResult> Reviews(string error = null)
         {
+            ViewBag.Error = error;
             return View(await _reviewsRepository.GetReviewsAsync());
         }
 
@@ -79,7 +82,7 @@ namespace FilmsLib.Controllers
 
                 _reviewsRepository.Add(review);
                 await _reviewsRepository.SaveChangesAsync();
-                return RedirectToAction("Index", "Film");
+                return RedirectToAction("Details", "Film", new { id = model.FilmId });
             }
             catch
             {
@@ -94,21 +97,28 @@ namespace FilmsLib.Controllers
 
             if (HttpContext.User.IsInRole("Admin"))
             {
-                _reviewsRepository.Delete(rev);
-                await _reviewsRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _reviewsRepository.Delete(rev);
+                    await _reviewsRepository.SaveChangesAsync();
+                    return RedirectToAction("Index", "Reviews", new { message = "Відгук успішно видалено!" });
+                }
+                catch
+                {
+                    return RedirectToAction("Index", "Reviews", new { error = "Під час видалення відгуку сталася помилка!" });
+                }
             }
             else
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                if(rev.Reviewer.UserId == user.Id)
+                if (rev.Reviewer.UserId == user.Id)
                 {
                     _reviewsRepository.Delete(rev);
                     await _reviewsRepository.SaveChangesAsync();
-                    return RedirectToAction("Profile", "Account");
+                    return RedirectToAction("Profile", "Account", new { message = "Відгук успішно видалено!" });
                 }
 
-                return RedirectToAction("Reviews", "Reviews");
+                return RedirectToAction("Reviews", "Reviews", new { error = "Ви намагаєтесь видалити чужий відгук!" });
             }
         }
 

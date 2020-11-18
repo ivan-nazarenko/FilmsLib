@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -54,7 +54,7 @@ namespace FilmsLib.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(string query)
         {
-            if(query == null)
+            if (query == null)
             {
                 return RedirectToAction("Index", "Film");
             }
@@ -123,11 +123,11 @@ namespace FilmsLib.Controllers
                     await _filmRepository.SaveChangesAsync();
                 }
 
-                return RedirectToAction(nameof(FilmsTable));
+                return RedirectToAction("FilmsTable", "Film", new { message = "Фільм успішно додано!" });
             }
             catch
             {
-                return View();
+                return RedirectToAction("Create", "Film");
             }
         }
 
@@ -169,7 +169,7 @@ namespace FilmsLib.Controllers
 
                 await _filmRepository.SaveChangesAsync();
 
-                return RedirectToAction("FilmsTable", "Film");
+                return RedirectToAction("FilmsTable", "Film", new { message = "Фільм успішно відредаговано!" });
             }
             catch
             {
@@ -187,18 +187,20 @@ namespace FilmsLib.Controllers
                 var film = await _filmRepository.GetByIdAsync(id);
                 _filmRepository.Delete(film);
                 await _filmRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(FilmsTable));
+                return RedirectToAction("FilmsTable", "Film", new { message = "Фільм успішно видалено!" });
             }
             catch
             {
-                return RedirectToAction(nameof(FilmsTable));
+                return RedirectToAction("FilmsTable", "Film", new { error = "Під час видалення фільму сталася помилка:(" });
             }
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> FilmsTable()
+        public async Task<IActionResult> FilmsTable(string message = null, string error = null)
         {
+            ViewBag.Message = message;
+            ViewBag.Error = error;
             return View(await _filmRepository.GetFilmsAsync());
         }
 
