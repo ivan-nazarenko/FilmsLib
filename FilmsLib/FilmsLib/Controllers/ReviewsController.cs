@@ -32,6 +32,13 @@ namespace FilmsLib.Controllers
             return View(await _reviewsRepository.GetReviewsAsync());
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Reviews()
+        {
+            return View(await _reviewsRepository.GetReviewsAsync());
+        }
+
         [Authorize(Roles = "User")]
         [HttpGet]
         public async Task<IActionResult> Create(int id)
@@ -80,21 +87,28 @@ namespace FilmsLib.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Delete(int id, int admin = 0)
+        public async Task<IActionResult> Delete(int id)
         {
             var rev = await _reviewsRepository.GetByIdAsync(id);
-            _reviewsRepository.Delete(rev);
-            await _reviewsRepository.SaveChangesAsync();
 
-            if (admin == 1)
+            if (HttpContext.User.IsInRole("Admin"))
             {
+                _reviewsRepository.Delete(rev);
+                await _reviewsRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                return RedirectToAction("Profile", "Account");
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                if(rev.Reviewer.UserId == user.Id)
+                {
+                    _reviewsRepository.Delete(rev);
+                    await _reviewsRepository.SaveChangesAsync();
+                    return RedirectToAction("Profile", "Account");
+                }
+
+                return RedirectToAction("Reviews", "Reviews");
             }
         }
 

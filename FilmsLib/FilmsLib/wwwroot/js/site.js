@@ -17,6 +17,14 @@ $(document).ready(function () {
         },
     });
 
-    $('.rating').rating();
+    $(".rateYo").rateYo({
+        numStars: 10,
+        maxValue: 10,
+        fullStar: true,
+        onChange: function (rating, rateYouInstance) {
+            $("#Mark").val(rating);
+            console.log($("#Mark"));
+        }
+    });
 
 });

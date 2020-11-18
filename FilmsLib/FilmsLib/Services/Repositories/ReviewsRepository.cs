@@ -27,6 +27,19 @@ namespace FilmsLib.Services.Repositories
             _context.Reviews.Remove(review);
         }
 
+        public async Task<double> GetAverageMarkAsync(int id)
+        {
+            try
+            {
+                var mark = await _context.Reviews.Where(r => r.FilmId == id).AverageAsync(r => r.Mark);
+                return mark;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
         public async Task<IEnumerable<Review>> GetByFilmIdAsync(int id)
         {
             return await _context.Reviews.Include(r => r.Film)

@@ -14,6 +14,7 @@ namespace FilmsLib.Services.Interfaces
         Task<Review> GetByIdAsync(int id);
         Task<IEnumerable<Review>> GetByReviewerIdAsync(int id);
         Task<IEnumerable<Review>> GetByFilmIdAsync(int id);
+        Task<double> GetAverageMarkAsync(int id);
         Task<bool> SaveChangesAsync();
     }
 }

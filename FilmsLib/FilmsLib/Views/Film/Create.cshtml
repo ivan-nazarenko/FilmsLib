@@ -34,7 +34,7 @@
     </div>
     <div class="form-group">
         <label asp-for="LanguageId"></label><br />
-        <select class="form-control" asp-for="LanguageId">
+        <select class="form-control selectpicker" data-live-search="true" asp-for="LanguageId">
             @foreach (var item in (List<Language>)ViewData["Languages"])
             {
                 <option value="@item.Id">@item.Name</option>
@@ -44,7 +44,7 @@
     </div>
     <div class="form-group">
         <label asp-for="DirectorId"></label><br />
-        <select class="form-control" asp-for="DirectorId">
+        <select class="form-control selectpicker" data-live-search="true" asp-for="DirectorId">
             @foreach (var item in (List<Director>)ViewData["Directors"])
             {
                 <option value="@item.Id">@item.FirstName @item.LastName</option>
@@ -54,7 +54,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Genres"></label><br />
-        <select multiple class="form-control" asp-for="Genres">
+        <select class="selectpicker form-control" multiple asp-for="Genres">
             @foreach (var item in (List<Genre>)ViewData["Genres"])
             {
                 <option value="@item.Id">@item.Name</option>

@@ -15,12 +15,14 @@ namespace FilmsLib.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IReviewerRepository _reviewerRepository;
+        private readonly IReviewsRepository _reviewsRepository;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IReviewerRepository reviewerRepository)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IReviewerRepository reviewerRepository, IReviewsRepository reviewsRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _reviewerRepository = reviewerRepository;
+            _reviewsRepository = reviewsRepository;
         }
 
         [HttpGet]
@@ -108,6 +110,15 @@ namespace FilmsLib.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var reviewer = await _reviewerRepository.GetByUserId(user.Id);
+            ViewBag.Reviews = await _reviewsRepository.GetByReviewerIdAsync(reviewer.Id);
+            return View(reviewer);
         }
 
         [HttpPost]

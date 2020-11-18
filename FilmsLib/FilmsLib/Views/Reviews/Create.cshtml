@@ -11,10 +11,8 @@
     <input asp-for="ReviewerId" type="hidden" value="@Model.ReviewerId" />
     <div class="form-group">
         <label asp-for="Mark"></label>
-        <div class="d-flex">
-            <span>&#128545;</span><input asp-for="Mark" type="range" min="1" max="10" step="1" class="form-control-range" /><span>&#128522;</span>
-        </div>
-        
+        <div class="rateYo"></div>
+        <input asp-for="Mark" type="hidden" />
         <span asp-validation-for="Mark"></span>
     </div>
     <div class="form-group">

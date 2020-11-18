@@ -54,6 +54,11 @@ namespace FilmsLib.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(string query)
         {
+            if(query == null)
+            {
+                return RedirectToAction("Index", "Film");
+            }
+
             ViewBag.Search = query;
             return View(await _filmRepository.GetByName(query));
         }
@@ -62,6 +67,7 @@ namespace FilmsLib.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Details(int id)
         {
+            ViewData["Mark"] = await _reviewsRepository.GetAverageMarkAsync(id);
             ViewBag.Reviews = await _reviewsRepository.GetByFilmIdAsync(id);
             var film = await _filmRepository.GetByIdAsync(id);
             return View(film);

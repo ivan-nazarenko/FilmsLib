@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="~/lib/Input-Field-Star-Rating-Plugin-jQuery/css/simple-rating.css" />
-    <link rel="stylesheet" href="~/lib/starrr-gh-pages/dist/starrr.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/r-2.2.5/datatables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 </head>
 <body>
     <header>
@@ -38,7 +37,7 @@
                                 <a class="nav-link" asp-area="" asp-controller="Film" asp-action="Index">Фільми</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Index">Відгуки</a>
+                                <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Reviews">Відгуки</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))
@@ -72,9 +71,12 @@
                                 @User.Identity.Name
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user mr-2"></i>Профіль
-                                </a>
+                                @if (User.IsInRole("User"))
+                                {
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                                        <i class="fas fa-user mr-2"></i>Профіль
+                                    </a>
+                                }
                                 <form method="post" asp-controller="Account" asp-action="Logout">
                                     <button type="submit" class="dropdown-item">
                                         <i class="fas fa-sign-out-alt mr-2"></i>Вийти
@@ -83,7 +85,6 @@
                             </div>
                         </div>
                     }
-
                 </div>
             </div>
         </nav>
@@ -109,8 +110,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/r-2.2.5/datatables.min.js"></script>
-    <script src="~/lib/Input-Field-Star-Rating-Plugin-jQuery/js/simple-rating.js"></script>
-    <link rel="stylesheet" href="~/lib/starrr-gh-pages/dist/starrr.js" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

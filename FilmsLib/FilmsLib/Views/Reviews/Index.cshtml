@@ -30,7 +30,7 @@
                 <td>@item.Text</td>
                 <td>@item.PublicatonDate</td>
                 <td class="d-flex">
-                    <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@item.Id" asp-route-admin="1">
+                    <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@item.Id">
                         <button type="submit" class="btn btn-dark btn-sm">
                             <i class="fas fa-trash"></i>
                         </button>
