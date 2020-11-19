@@ -8,7 +8,7 @@ namespace FilmsLib.ViewModels
 {
     public class SingleLineViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Назва")]
         public string Name { get; set; }
     }

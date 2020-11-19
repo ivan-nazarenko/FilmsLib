@@ -8,11 +8,11 @@ namespace FilmsLib.ViewModels
 {
     public class DirectorViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Ім'я")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Прізвище")]
         public string LastName { get; set; }
     }

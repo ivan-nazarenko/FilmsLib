@@ -25,32 +25,32 @@ namespace FilmsLib.ViewModels
 
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Ім'я")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Рік")]
         public int Year { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Тривалість")]
         public int Duration { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Опис")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Посилання на трейлер")]
         public string TrailerLink { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Мова")]
         public int LanguageId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Режисер")]
         public int DirectorId { get; set; }
     }

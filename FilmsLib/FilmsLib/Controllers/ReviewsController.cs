@@ -35,8 +35,7 @@ namespace FilmsLib.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Reviews(string error = null)
+        public async Task<IActionResult> Public(string error = null)
         {
             ViewBag.Error = error;
             return View(await _reviewsRepository.GetReviewsAsync());
@@ -126,7 +125,7 @@ namespace FilmsLib.Controllers
                     return RedirectToAction("Profile", "Account", new { message = "Відгук успішно видалено!" });
                 }
 
-                return RedirectToAction("Reviews", "Reviews", new { error = "Ви намагаєтесь видалити чужий відгук!" });
+                return RedirectToAction("Public", "Reviews", new { error = "Ви намагаєтесь видалити чужий відгук!" });
             }
         }
 

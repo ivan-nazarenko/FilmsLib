@@ -8,16 +8,16 @@ namespace FilmsLib.ViewModels
 {
     public class ReviewViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Оцінка")]
         public int Mark { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Заголовок")]
         [StringLength(30, ErrorMessage = "Заголовок надто довгий")]
         public string Heading { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обов'язкове")]
         [Display(Name = "Текст")]
         public string Text { get; set; }
 
