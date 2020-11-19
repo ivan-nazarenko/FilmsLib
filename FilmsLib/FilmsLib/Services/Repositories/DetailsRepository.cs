@@ -58,6 +58,20 @@ namespace FilmsLib.Services.Repositories
             return await _context.Directors.ToListAsync();
         }
 
+        public async Task<IEnumerable<Film>> GetFilmsByGenre(int id)
+        {
+            return await _context.FilmGenres.Include(g => g.Genre)
+                                            .Include(f => f.Film)
+                                            .ThenInclude(f => f.Cover)
+                                            .Include(f => f.Film)
+                                            .ThenInclude(f => f.FilmGenres)
+                                            .ThenInclude(f => f.Genre)
+                                            .Include(f => f.Film)
+                                            .ThenInclude(d => d.Director)
+                                            .Where(g => g.GenreId == id)
+                                            .Select(f => f.Film).ToListAsync();
+        }
+
         public async Task<Genre> GetGenreByIdAsync(int id)
         {
             return await _context.Genres.FindAsync(id);

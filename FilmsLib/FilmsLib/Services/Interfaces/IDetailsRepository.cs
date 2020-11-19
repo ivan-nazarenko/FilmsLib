@@ -20,6 +20,7 @@ namespace FilmsLib.Services.Interfaces
         Task<Language> GetLanguageByIdAsync(int id);
         Task<Director> GetDirectorByIdAsync(int id);
         Task<Genre> GetGenreByIdAsync(int id);
+        Task<IEnumerable<Film>> GetFilmsByGenre(int id); 
         Task<bool> SaveChangesAsync();
     }
 }

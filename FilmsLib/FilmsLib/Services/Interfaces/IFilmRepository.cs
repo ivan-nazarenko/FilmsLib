@@ -13,7 +13,6 @@ namespace FilmsLib.Services.Interfaces
         void Delete(Film film);
         void Update(Film film);
         Task<Film> GetByIdAsync(int id);
-        Task<IEnumerable<Film>> GetByGenreAsync(int genreId);
         Task<IEnumerable<Film>> GetByDirectorAsync(int directorId);
         Task<IEnumerable<Film>> GetFilmsAsync();
         Task<IEnumerable<Film>> GetByName(string name);

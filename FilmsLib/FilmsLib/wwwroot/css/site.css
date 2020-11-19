@@ -110,3 +110,15 @@ img.film-poster {
 .review-avatar {
     border-radius: 50%;
 }
+
+.genre-btn {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+    margin-top: -5px !important;
+    padding: 0 !important;
+    transition: 0.1s ease-out 0.1s;
+}
+
+.genre-btn:hover{
+    font-weight: bold;
+} 

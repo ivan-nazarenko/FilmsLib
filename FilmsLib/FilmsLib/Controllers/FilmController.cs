@@ -63,10 +63,38 @@ namespace FilmsLib.Controllers
             return View(await _filmRepository.GetByName(query));
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Sorted(string type, int id)
+        {
+            try
+            {
+                if (type == "dir")
+                {
+                    var dir = await _detailsRepository.GetDirectorByIdAsync(id);
+                    ViewBag.Sort = $"{dir.FirstName} {dir.LastName}";
+                    var films = await _filmRepository.GetByDirectorAsync(id);
+                    return View(films);
+                }
+                else
+                {
+                    var genre = await _detailsRepository.GetGenreByIdAsync(id);
+                    ViewBag.Sort = genre.Name;
+                    var films = await _detailsRepository.GetFilmsByGenre(id);
+                    return View(films);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Film");
+            }
+        }
+
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int id, string message = null)
         {
+            ViewBag.Message = message;
             ViewData["Mark"] = await _reviewsRepository.GetAverageMarkAsync(id);
             ViewBag.Reviews = await _reviewsRepository.GetByFilmIdAsync(id);
             var film = await _filmRepository.GetByIdAsync(id);

@@ -6,7 +6,7 @@
 
 @if (ViewBag.Error != null)
 {
-    <div class="alert alert-danger">
+    <div class="alert alert-warning fade show">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         @ViewBag.Error
     </div>
@@ -35,7 +35,12 @@
                 <div class="d-flex align-content-start">
                     <div class="d-flex flex-column">
                         <span class="font-weight-bold mr-1">@item.Reviewer.Nickname</span>
-                        <h5>@item.Heading</h5>
+                        <h5>
+                            @item.Heading&nbsp;
+                            <a asp-controller="Film" asp-action="Details" asp-route-id="@item.Film.Id">
+                                (@item.Film.Name)
+                            </a>
+                        </h5>
                         <p>@item.Text</p>
                     </div>
                 </div>

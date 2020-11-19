@@ -6,7 +6,7 @@
 
 
 <div class="row justify-content-between align-content-start mb-2">
-    <h2 class="text-dark mr-auto">Фільми</h2>
+    <h2 class="text-dark mr-auto">Фільми: @ViewBag.Sort</h2>
 </div>
 <div class="row">
     @foreach (var item in Model)
@@ -44,7 +44,7 @@
                             <input name="type" type="hidden" value="dir">
                             <input name="id" type="hidden" value="@item.DirectorId">
                             <button class="text-info btn btn-sm btn-outline-dark genre-btn" type="submit">
-                                @item.Director.FirstName @item.Director.LastName 
+                                @item.Director.FirstName @item.Director.LastName
                             </button>
                         </form>
                     </div>

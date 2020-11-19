@@ -69,14 +69,6 @@ namespace FilmsLib.Services.Repositories
                                        .ToListAsync();
         }
 
-        public async Task<IEnumerable<Film>> GetByGenreAsync(int genreId)
-        {
-            return await _context.Films.Include(f => f.FilmGenres)
-                                       .ThenInclude(g => g.Genre)
-                                       .ThenInclude(g => g.Id == genreId)
-                                       .ToListAsync();
-        }
-
         public async Task<Film> GetByIdAsync(int id)
         {
             return await _context.Films.Include(f => f.FilmGenres)

@@ -49,6 +49,14 @@ namespace FilmsLib.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var reviewer = await _reviewerRepository.GetByUserId(user.Id);
 
+            foreach(var rev in reviewer.Reviews)
+            {
+                if(rev.FilmId == id)
+                {
+                    return RedirectToAction("Profile", "Account", new { error = "Схоже ви вже залишали відгук на цей фільм, ви можете знайти його тут" });
+                }
+            }
+
             var model = new ReviewViewModel
             {
                 FilmId = id,
