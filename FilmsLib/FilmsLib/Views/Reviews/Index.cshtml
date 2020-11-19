@@ -38,7 +38,7 @@
                 <td>@item.PublicatonDate</td>
                 <td class="d-flex">
                     <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@item.Id">
-                        <button type="submit" class="btn btn-dark btn-sm">
+                        <button type="submit" onclick="return confirm('Ви впевнені?')" class="btn btn-dark btn-sm">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>

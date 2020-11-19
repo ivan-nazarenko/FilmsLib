@@ -34,7 +34,7 @@
                         <td>@genre.Name</td>
                         <td>
                             <form asp-action="DeleteGenre" asp-route-id="@genre.Id" data-ajax="true" data-ajax-success="deleteRow(this)">
-                                <button type="submit" class="btn btn-dark btn-sm">
+                                <button type="submit" onclick="return confirm('Ви впевнені?')" class="btn btn-dark btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -67,7 +67,7 @@
                         <td>@dir.LastName</td>
                         <td>
                             <form asp-action="DeleteDirector" asp-route-id="@dir.Id" data-ajax="true" data-ajax-success="deleteRow(this)">
-                                <button type="submit" class="btn btn-dark btn-sm">
+                                <button type="submit" onclick="return confirm('Ви впевнені? Видалення режисера призведе до видалення його фільмів.')" class="btn btn-dark btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -98,7 +98,7 @@
                         <td>@lang.Name</td>
                         <td>
                             <form asp-action="DeleteLanguage" asp-route-id="@lang.Id" data-ajax="true" data-ajax-success="deleteRow(this)">
-                                <button type="submit" class="btn btn-dark btn-sm">
+                                <button type="submit" onclick="return confirm('Ви впевнені? Видалення мови призведе до видалення його фільмів.')" class="btn btn-dark btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -50,7 +50,7 @@
                 </div>
             </div>
             <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@item.Id" class="col-auto">
-                <button type="submit" class="btn btn-dark btn-lg align-self-center">
+                <button type="submit" onclick="return confirm('Ви впевнені?')" class="btn btn-dark btn-lg align-self-center">
                     <i class="fas fa-trash"></i>
                 </button>
             </form>

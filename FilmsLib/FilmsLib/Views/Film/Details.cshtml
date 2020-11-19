@@ -32,19 +32,34 @@
             </div>
             @if ((double)ViewData["Mark"] != 0 || ViewBag.Reviews.Count != 0)
             {
-                <p class="card-text desc"><span class="font-weight-bold">Оцінка:&nbsp;</span>@ViewData["Mark"]</p>
+                <div class="card-text mb-1"><span class="font-weight-bold">Оцінка:&nbsp;</span>@ViewData["Mark"]</div>
             }
-            <p class="card-text">
+            <div class="card-text mb-1">
                 <span class="font-weight-bold">Жанри:</span>
                 @foreach (var gen in Model.FilmGenres)
                 {
-                    <span>@gen.Genre.Name,</span>
+                    <form asp-controller="Film" asp-action="Sorted" style="display: inline;">
+                        <input name="type" type="hidden" value="genre">
+                        <input name="id" type="hidden" value="@gen.Genre.Id">
+                        <button class="text-info btn btn-sm btn-outline-light bg-white genre-btn" type="submit">
+                            @gen.Genre.Name
+                        </button>
+                    </form>
                 }
-            </p>
-            <p class="card-text"><span class="font-weight-bold">Режисер:&nbsp;</span>@Model.Director.FirstName @Model.Director.LastName</p>
-            <p class="card-text"><span class="font-weight-bold">Мова оригіналу:&nbsp;</span>@Model.Language.Name</p>
-            <p class="card-text"><span class="font-weight-bold">Тривалість:&nbsp;</span>@Model.Duration хвилин</p>
-            <p class="card-text desc"><span class="font-weight-bold">Опис:&nbsp;</span>@Model.Description</p>
+            </div>
+            <div class="card-text mb-1">
+                <span class="font-weight-bold">Режисер:&nbsp;</span>
+                <form asp-controller="Film" asp-action="Sorted" style="display: inline;">
+                    <input name="type" type="hidden" value="dir">
+                    <input name="id" type="hidden" value="@Model.DirectorId">
+                    <button class="text-info btn btn-sm btn-outline-light bg-white genre-btn" type="submit">
+                        @Model.Director.FirstName @Model.Director.LastName
+                    </button>
+                </form>
+            </div>
+            <div class="card-text mb-1"><span class="font-weight-bold">Мова оригіналу:&nbsp;</span>@Model.Language.Name</div>
+            <div class="card-text mb-1"><span class="font-weight-bold">Тривалість:&nbsp;</span>@Model.Duration хвилин</div>
+            <div class="card-text desc mb-1"><span class="font-weight-bold">Опис:&nbsp;</span>@Model.Description</div>
         </div>
     </div>
     <div class="embed-responsive embed-responsive-16by9">

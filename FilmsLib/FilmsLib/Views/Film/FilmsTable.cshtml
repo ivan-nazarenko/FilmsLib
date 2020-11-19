@@ -60,7 +60,7 @@
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     <form asp-action="Delete" asp-route-id="@item.Id">
-                        <button type="submit" class="btn btn-dark btn-sm">
+                        <button type="submit" onclick="return confirm('Ви впевнені?')" class="btn btn-dark btn-sm">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>
